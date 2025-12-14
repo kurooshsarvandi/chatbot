@@ -1,0 +1,28 @@
+.chat-message-user{
+        display: flex;
+        align-items:start;
+        justify-content: end;
+      }
+
+.chat-message-text{
+        background-color: rgb(238,238 ,238);
+        padding: 15px 20px;
+        border-radius: 10px;
+        margin-right: 10px;
+        margin-left: 10px;
+        margin-bottom: 20px;
+        margin-top: 5px;
+        max-width: 300px;
+      }
+
+      .chat-message-robot{
+        display: flex;
+        align-items:start;
+      }
+      .chat-message-profile {
+         width: 40px;
+         height: 40px;
+         object-fit: cover;   /* عکس کروپ می‌شود */
+         border-radius: 50%;  /* عکس گرد می‌شود */
+}
+      
