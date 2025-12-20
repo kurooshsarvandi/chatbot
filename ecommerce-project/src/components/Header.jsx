@@ -1,6 +1,6 @@
-import { Link } from './react-router';
+import { Link } from 'react-router-dom';
 import './header.css';
-export function header() {
+export function Header() {
   return (
     <>
       <div className="header">
