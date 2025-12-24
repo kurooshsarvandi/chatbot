@@ -1,25 +1,38 @@
-# Logs
-logs
-*.log
+# Dependency directories
+# نادیده گرفتن تمام پوشه‌های ماژول‌ها در تمامی پروژه‌ها
+node_modules/
+**/node_modules/
+
+# Build outputs
+# نادیده گرفتن خروجی‌های ساخت پروژه (مثل Vite و غیره)
+dist/
+**/dist/
+.vite/
+**/.vite/
+.vite-temp/
+
+# Environment variables
+# بسیار مهم: نادیده گرفتن فایل‌های تنظیمات حساس و کلیدهای امنیتی
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Debug logs
+# نادیده گرفتن فایل‌های گزارش خطا
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+*.log
 
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+# Editor & System files
+# نادیده گرفتن فایل‌های مخصوص ادیتورها و سیستم‌عامل
+.vscode/
+.idea/
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-*.ecommerce-project/node_modules
+Thumbs.db
+
+# Databases (if local)
+# اگر دیتابیس محلی دارید (مثل SQLite)
+*.sqlite
