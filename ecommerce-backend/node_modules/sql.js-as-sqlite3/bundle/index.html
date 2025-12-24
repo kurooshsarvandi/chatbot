@@ -1,0 +1,133 @@
+<html>
+  <head>
+    <title>sql.js-as-sqlite3</title>
+
+    <meta charset="utf-8">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.2/sql-wasm.min.js"></script>
+    <script>
+      SQL_JS_WASM_FILE_BASE_URL = 'https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.10.2/'
+    </script>
+
+    <script src="./sql.js-as-sqlite3.min.js"></script>
+
+    <script src="./lib/prism.js"></script>
+
+    <style>
+      body
+      {
+        margin : 20px;
+        font-family : Arial, Helvetica;
+        background: #434343;
+        color: #dddddd;
+      }
+
+      #main-link
+      {
+        display     : block;
+        font-size   : 24px;
+        color       : #fd8900;
+        font-family : monospace;
+        text-decoration : none;
+      }
+
+      a
+      {
+        color: #fd8900;
+      }
+
+      code {
+        color: #fd8900;
+        font-family: monospace;
+        font-size: 1.2em;
+      }
+
+      .code-link {
+        text-decoration: none;
+      }
+
+      #run {
+        background-color: #fd8900;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.75rem;
+        color: #000000;
+        border: 1px solid currentColor;
+        border-radius: 4px;
+        display: inline-block;
+        padding: 6px 12px;
+        cursor: pointer;
+      }
+
+      #run:active {
+        background-color: #fb7200;
+      }
+    </style>
+
+    <link href="lib/prism.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <a id="main-link" href="https://gitlab.com/catamphetamine/sql.js-as-sqlite3">
+      sql.js-as-sqlite3
+    </a>
+
+    <br/>
+
+    <div style="line-height: 1.35em">
+      <a class="code-link" target="_blank" href="https://www.npmjs.com/package/sqlite3"><code>sqlite3</code></a>-compatible interface for <a class="code-link" target="_blank" href="https://www.npmjs.com/package/sql.js"><code>sql.js</code></a>.
+    </div>
+
+    <pre><code class="language-js" id="example">const database = new sqlJsAsSqlite3.Database(':memory:', () => {
+  console.log('open')
+  database.run('CREATE TABLE users (name TEXT)', () => {
+    database.all('INSERT INTO users (name) VALUES (\'john\')', () => {
+      database.each('UPDATE users SET name=\'smith\' WHERE name=\'john\'')
+      database.get('SELECT * FROM users WHERE rowid = 1', (error, row) => {
+        // Prints: "name: smith"
+        console.log(row.columns[0] + ': ' + row.values[0][0])
+        database.close(() => {
+          console.log('closed')
+        })
+      })
+    })
+  })
+})</code></pre>
+
+    <button id="run">
+      Run the example
+    </button>
+
+    <script>
+      let output = ''
+      function log(line) {
+        console.log(line)
+        output += line + '\n'
+      }
+      function clear() {
+        output = ''
+      }
+      function run() {
+        clear()
+        const database = new sqlJsAsSqlite3.Database(':memory:', () => {
+          log('open')
+          database.run('CREATE TABLE users (name TEXT)', () => {
+            database.all('INSERT INTO users (name) VALUES (\'john\')', () => {
+              database.each('UPDATE users SET name=\'smith\' WHERE name=\'john\'')
+              database.get('SELECT * FROM users WHERE rowid = 1', (error, row) => {
+                // Prints: "name: smith"
+                log(row.columns[0] + ': ' + row.values[0][0])
+                database.close(() => {
+                  log('closed')
+                  alert(output)
+                })
+              })
+            })
+          })
+        })
+      }
+
+      document.getElementById('run').addEventListener('click', run)
+    </script>
+  </body>
+</html>
